@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using System.Net.Http
+@using StudentEducationInfo
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    List<StudentEducationModel> Eucation = HttpContextAccessor.HttpContext.Session.GetObject<List<StudentEducationModel>>("StudentEduCation");
+    string message;
+    if (Eucation == null)
+    {
+        Eucation = new List<StudentEducationModel>();
+
+        message = "No data found";
+
+    }
+    else
+    {
+        message = "";
+
+    }
+
+}
+
+<div class="form-row">
+   
+    <form method="post" asp-action="GetEducationByID" asp-controller="Home">
+        <label>Student ID: </label>
+        <input class="form-control" type="text" name="StudentID" value="@ViewBag.StudentID" /><br />
+        <button class="btn btn-success" type="submit">Search</button><br />
+    </form>
+</div>
+<br />
+<label class="text-danger">@message</label>
+@if (HttpContextAccessor.HttpContext.Session.GetObject<List<StudentEducationModel>>("StudentEduCation") != null)
+{
+<a asp-action="Toggle" asp-controller="Home" class="btn btn-info" asp-route-StudentID="@ViewBag.StudentID" asp-route-flag="@ViewBag.flag">Ceate New Record</a>
+<br /><br />
+<table class="table table-striped table-bordered">
+    <thead style="color:green">
+        <tr>
+            <td>Student ID</td>
+            <td>Degree</td>
+            <td>Major</td>
+            <td>Institute</td>
+            <td>Board</td>
+            <td>Passing Year</td>
+            <td>GPA</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Eucation)
+            {
+        <tr>
+            <td>@item.StudentID</td>
+            <td>@item.Degree</td>
+            <td>@item.MajorSubject</td>
+            <td>@item.Institute</td>
+            <td>@item.Board</td>
+            <td>@item.PassingYear</td>
+            <td>@item.CGPA</td>
+
+            <td>
+                <a asp-action="EditEducation" asp-controller="Home" class="btn btn-primary" asp-route-personid="@item.PersonID" asp-route-Degree="@item.Degree" asp-route-StudentID="@item.StudentID" asp-route-MajorSubject="@item.MajorSubject" asp-route-Institute="@item.Institute" asp-route-Board="@item.Board" asp-route-PassingYear="@item.PassingYear" asp-route-CGPA="@item.CGPA"><i class="fas fa-edit"></i></a>
+                @*<a asp-action="Details" asp-controller="Products" class="btn btn-success" asp-route-id=""><i class="fas fa-list"></i></a>*@
+                @*<a asp-action="DeleteEducation" asp-controller="Home" class="btn btn-danger" asp-route-personid="@item.PersonID" asp-route-degree="@item.Degree" asp-route-StudentID="@item.StudentID"><i class="fas fa-trash-alt"></i></a>*@
+            </td>
+        </tr>
+            }
+
+    </tbody>
+
+</table>
+
+
+
+
+}
+
+<br />
+@if(@ViewBag.flag==1){
+
+<div class="form-group col-md-5">
+    <form method="post" asp-action="CreateEducation" asp-controller="Home">
+        <h3>New Education Record Creation</h3><br />
+        <label>Student ID:</label>
+        <input class="form-control" readonly="readonly" type="text" name="StudentID" value="@ViewBag.StudentID" required />
+
+        <label>Degree:</label>
+        <select class="form-control" name="Degree" required>
+            <option value="">--Slect Degree--</option>
+            @foreach (var item in @ViewBag.Degree)
+            {
+            <option value="@item.Degree">@item.Degree</option>
+            }
+        </select><br />
+        <label>Major Subject</label>
+        <input class="form-control" type="text" name="MajorSubject" value="" required /><br />
+        <label>Institute</label>
+        <input class="form-control" type="text" name="Institute" value="" required /><br />
+        <label>Board</label>
+        <input class="form-control" type="text" name="Board" value="" required /><br />
+
+        <label>Passing Year:</label><br />
+
+        <input type="number" class="datepicker" name="PassingYear" required /><br />
+        <label>CGPA</label>
+        <input class="form-control" type="number" min="0" name="CGPA" value="" step=".01" placeholder="Upto 2 Decimal digit" required /><br />
+
+        <button type="submit" class="btn btn-success">Create Record</button>
+    </form>
+</div>
+
+}
+
+
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function () {
+
+            $(".datepicker").datepicker({
+                format: 'yyyy', autoclose: true, viewMode: "years",
+                minViewMode: "years"
+            })
+
+        } );
+    $(function () {
+        var save = '@TempData["save"]'
+        if (save != '') {
+            alertify.success(save);
+        }
+        var edit = '@TempData["edit"]'
+        var noData='@TempData["noData"]'
+        if (edit != '') {
+            alertify.warning(edit);
+        }
+        if (noData != '') {
+            alertify.error(noData);
+        }
+    })
+    </script>
+}

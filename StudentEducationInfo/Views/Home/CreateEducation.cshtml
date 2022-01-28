@@ -1,0 +1,44 @@
+﻿<div class="form-group col-md-5">
+    <form method="post" asp-action="CreateEducation" asp-controller="Home">
+        <h3>New Education Record Creation</h3><br />
+        <label>Student ID:</label>
+        <input class="form-control" type="text" name="StudentID" value="" required />
+
+        <label>Degree:</label>
+        <select class="form-control" name="Degree" required>
+            <option value="">--Slect Degree--</option>
+            @foreach (var item in @ViewBag.Degree)
+            {
+                <option value="@item">@item</option>
+            }
+        </select><br />
+        <label>Major Subject</label>
+        <input class="form-control" type="text" name="MajorSubject" value="" required /><br />
+        <label>Institute</label>
+        <input class="form-control" type="text" name="Institute" value="" required /><br />
+        <label>Board</label>
+        <input class="form-control" type="text" name="Board" value="" required /><br />
+
+        <label>Passing Year:</label><br />
+
+        <input type="number" class="datepicker" name="PassingYear" required /><br />
+        <label>CGPA</label>
+        <input class="form-control" type="number" min="0" name="CGPA" value="" step=".01" placeholder="Upto 2 Decimal digit" required /><br />
+
+        <button type="submit" class="btn btn-success">Create Record</button>
+    </form>
+</div>
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function () {
+
+            $(".datepicker").datepicker({
+                format: 'yyyy', autoclose: true, viewMode: "years",
+                minViewMode: "years"
+            })
+
+        } );
+    
+    </script>
+}

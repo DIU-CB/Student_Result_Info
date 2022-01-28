@@ -1,0 +1,61 @@
+﻿@model StudentEducationInfo.Models.StudentEducationModel
+
+<div class="form-group col-md-5">
+    <form method="post" asp-action="EditEducations" asp-controller="Home">
+        <h1>Edit Education Record </h1><br />
+        <label>Student ID:</label>
+        <input class="form-control" readonly="readonly" type="text" name="StudentID" value="@Model.StudentID" required />
+        <input type="hidden" name="PersonID" value="@Model.PersonID"  />
+        <label>Degree:</label>
+        @*<select class="form-control" name="Degree" value="@Model.Degree" required>
+                <option value="">--Slect Degree--</option>
+                @foreach (var item in @ViewBag.Degree)
+                {
+                    <option value="@item.Degree">@item.Degree</option>
+                }
+            </select><br />*@
+        <input class="form-control" readonly="readonly" type="text" name="Degree" value="@Model.Degree" required /><br />
+        <label>Major Subject</label>
+        <input class="form-control" type="text" readonly="readonly" name="MajorSubject" value="@Model.MajorSubject" required /><br />
+        <label>Institute</label>
+        <input class="form-control" type="text" name="Institute" value="@Model.Institute" required /><br />
+        <label>University/Board</label>
+        <input class="form-control" type="text" name="Board" value="@Model.Board" required /><br />
+
+        <label>Passing Year:</label><br />
+
+        <input type="number" class="datepicker" name="PassingYear" value="@Model.PassingYear" required /><br />
+        <label>CGPA</label>
+        <input class="form-control" type="number" min="0" name="CGPA" value="@Model.CGPA" step=".01" placeholder="Upto 2 Decimal digit" required /><br />
+
+        <button type="submit" class="btn btn-info">Update Record</button>
+    </form>
+</div>
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready( function () {
+
+            $(".datepicker").datepicker({
+                format: 'yyyy', autoclose: true, viewMode: "years",
+                minViewMode: "years"
+            })
+
+        } );
+    $(function () {
+        var save = '@TempData["save"]'
+        if (save != '') {
+            alertify.success(save);
+        }
+        var edit = '@TempData["edit"]'
+        var noData='@TempData["noData"]'
+        if (edit != '') {
+            alertify.warning(edit);
+        }
+        if (noData != '') {
+            alertify.error(noData);
+        }
+    })
+    </script>
+}

@@ -1,0 +1,95 @@
+﻿
+
+@model StudentEducationInfo.Models.VoterIDModel
+
+<h4>Type Student ID</h4>
+<form id="student" method="post" asp-action="GetVoterIdByStudentID" asp-controller="VoterID">
+    <input class="form-control" id="StudentID" type="text" name="ID" value="" placeholder="Please type Student ID" />
+    <br />
+    <button type="submit" class="btn btn-info">Search Student</button>
+</form>
+<label class="text-danger"> @ViewBag.msg</label>
+
+<br />
+<br />
+<div class="form-row">
+
+    @if (Model != null)
+    {
+        <form id="student-VoterID" method="post" asp-action="SaveorUpdateVoterID" asp-controller="VoterID">
+            <label>Student Id</label>
+            <input class="form-control" readonly="readonly" type="text" name="StudentId" value="@Model.StudentId" placeholder="Please type Student ID" />
+            <br />
+            <label>VoterID</label>
+            <input class="form-control" type="text" name="VoterId" value="@Model.VoterId" placeholder="Enter VoterID" /><br />
+            <input class="form-control" type="hidden" name="PersonId" value="@Model.PersonId" placeholder="Please Email" /><br />
+            <button type="submit" class="btn btn-success">Update VoterID Confirm</button>
+        </form>
+    }
+
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script>
+
+
+
+                      $(document).ready(function () {
+
+
+
+                          $("#student-VoterID").validate({
+                              rules: {
+                                  StudentId: {
+                                      required: true,
+
+                                  },
+
+                                  VoterId: {
+                                      required: true,
+                                     
+                                  },
+                                  messages: {
+                                      StudentId: {
+                                          required: "Student ID should be searched by typing above field ",
+                                      },
+
+
+                                      VoterId: {
+                                          required: "VoterId is required",
+                                          
+                                      }
+                                  }
+                              }
+
+                          });
+
+                          $("#student").validate({
+                              rules: {
+                                  ID: {
+                                      required: true,
+
+                                  },
+
+                                  messages: {
+
+                                      ID: "Please type an ID"
+
+                                  }
+
+
+
+                              }
+
+                          });
+                      });
+
+    </script>
+
+
+
+}
+
+

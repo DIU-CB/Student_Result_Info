@@ -1,0 +1,126 @@
+﻿@model IEnumerable<StudentEducationInfo.Models.VoterIDModel>
+
+<div class="row col-12">
+    <div class="container col-4" style="margin-top:50px">
+        <h3>Chose The Excel File To Update Students VoterID</h3><br />
+        <form id="Excel-UploadForm" enctype="multipart/form-data" asp-action="VoterIDExcelUpload" asp-controller="VoterID">
+            <input class="form-control" style="width:300px" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <br />
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+        <h5 style="color:red">@ViewBag.Msg</h5>
+    </div>
+
+    <div class="col-3">
+        <h3>Format Example</h3>
+        <table class="table table-striped table-bordered mt-3">
+            <tr>
+                <th>  Student_ID  </th>
+                <th>  VoterID  </th>
+            </tr>
+            <tr>
+                <td>152-15-000</td>
+                <td>0544255522</td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>
+<labrl>Excel file data will be counted from second row</labrl>
+
+@if (Model != null)
+{
+    <h3>These ID do not Exist</h3>
+    <table class="table table-striped table-bordered mt-3 col-6">
+        <tr>
+            <th>  Student_ID  </th>
+            <th>  Email  </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentId</td>
+                <td>@item.VoterId</td>
+            </tr>
+        }
+
+    </table>
+}
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+
+            //$("#Search").click(function () {
+
+            //    var ID = $("#StudentID").val();
+
+            //    $.ajax({
+
+            //        url: '/Home/GetStudentByID?ID=' + ID,
+            //        type: 'GET',
+            //        dataType: 'JSON',
+            //        success: function (data) {
+            //            //console.log(data);
+            //            $.each(data, function (i, obj) {
+            //                //console.log(obj);
+            //                $("#StudentId").val(obj.studentId)
+            //                $("#Email").val(obj.email)
+
+
+            //            });
+
+
+
+
+
+            //        },
+            //        error: function () {
+            //            console.log(error);
+            //        }
+
+
+            //    })
+
+
+            //});
+
+
+
+
+            $("#Excel-UploadForm").validate({
+                rules: {
+                    file: {
+                        required: true,
+
+                    },
+
+                    messages: {
+
+                        file: "Please Upload an Excel File"
+
+                    }
+
+
+
+                }
+
+            });
+        });
+
+    </script>
+
+
+
+}
+
+
+
+

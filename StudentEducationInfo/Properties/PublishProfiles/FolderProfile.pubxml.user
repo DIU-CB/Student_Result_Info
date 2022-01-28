@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Kazi Rumi\OneDrive\Documents\Final PublishEnviroment\Result</_PublishTargetUrl>
+    <History>True|2021-03-21T03:44:40.9547777Z;True|2021-03-20T20:42:37.2006403-07:00;True|2021-03-20T05:42:11.1330302-07:00;True|2021-03-20T05:27:45.3478609-07:00;True|2021-03-20T05:21:35.1984913-07:00;True|2021-03-20T01:51:44.1897182-07:00;True|2021-03-20T01:10:48.1988349-07:00;True|2021-03-17T23:07:11.8143398-07:00;True|2021-03-17T23:05:21.4026109-07:00;True|2021-03-15T03:14:57.0221598-07:00;True|2021-03-15T01:02:46.2631353-07:00;True|2021-03-15T00:17:08.9192429-07:00;True|2021-03-15T00:14:36.6700607-07:00;True|2021-03-14T22:57:16.2573839-07:00;</History>
+  </PropertyGroup>
+</Project>

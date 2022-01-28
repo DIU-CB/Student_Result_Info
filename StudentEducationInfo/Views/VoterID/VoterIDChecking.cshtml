@@ -1,0 +1,113 @@
+﻿@model IEnumerable<StudentEducationInfo.Models.VoterIDModel>
+
+<div style="margin-top:100px">
+    <form method="post" asp-action="VoterIDChecking" asp-controller="VoterID">
+        <h4>Please Select Semester</h4>
+        <select name="Semester" class="form-control" style="width:500px" id="Semsters" required>
+            <option value="">Select Semester </option>
+            @foreach (var item in @ViewBag.SemesterList)
+            {
+                <option value="@item.SemesterId-">@item.SemesterId </option>
+            }
+
+        </select>
+        <br /><br />
+        <button type="submit" class="btn btn-success">Find The Student List Of Null VoterID</button>
+    </form>
+</div>
+@if (Model == null)
+{
+    <br />
+    <br />
+    <h4 style="color:red" class="mt-auto">@ViewBag.msg</h4>
+
+}
+
+<br />
+<table id="myTable" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>  Student_ID  </th>
+            <th>  VoterID  </th>
+            <th>  StudentName  </th>
+     
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.StudentId</td>
+                    <td>@item.VoterId</td>
+                    <td>@item.StudentName</td>
+                 
+
+                </tr>
+            }
+        }
+
+
+
+    </tbody>
+
+
+
+
+</table>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //$.ajax({
+
+            //    url: '../Home/GetAllSemester',
+            //    type: 'GET',
+            //    dataType: 'JSON',
+            //    success: function (data) {
+            //        // console.log(data);
+            //        $.each(data, function (i, obj) {
+
+            //            var s = '<option value="' + obj.semesterId + '-">' + obj.semesterId + '</option>';
+
+            //            $("#Semsters").append(s);
+            //        });
+            //    }
+
+
+            //})
+
+
+            $('#myTable').DataTable(
+                {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy',
+                        'csv',
+                        {
+                            extend: 'excel',
+                            filename: 'VoterIDUpdate',
+                            title: ''
+                        },
+                        'pdf',
+                        'print'
+                    ]
+                }
+            );
+        });
+
+
+
+
+    </script>
+
+
+}
+
+
